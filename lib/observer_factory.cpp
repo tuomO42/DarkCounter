@@ -66,16 +66,15 @@ bool ObserverFactory::selectProcess(std::string_view name)
             break;
         }
     };
-    
+
+    std::cout << "Selected process with pid: " << _pid << "\n";
     return !(_pid == -1);
 }
 
 
-Observer ObserverFactory::makeObserver(std::string_view name, void* address) const
+Observer ObserverFactory::makeObserver(std::string name, void* address) const
 {
-    std::string out_file = "";
-    out_file.append(_obs_folder);
-    out_file.append(std::format("/{}.txt", name));
+    std::string out_file = std::format("./{}/{}.txt", _obs_folder, name);
 
-    return Observer(_pid, address, _obs_folder);
+    return Observer(_pid, address, out_file);
 }

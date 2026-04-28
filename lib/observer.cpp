@@ -8,7 +8,7 @@
 #include <string.h>
 
 
-Observer::Observer(int pid, void* address, std::string_view out_file):
+Observer::Observer(int pid, void* address, std::string out_file):
 _pid(pid),
 _address(address),
 _path(out_file)
@@ -26,7 +26,7 @@ bool Observer::update() const
 
     std::ofstream out(_path.data());
     auto val = std::format("{}", _ret);
-    out.write(val.c_str(), val.size());
+    out.write(val.c_str(), val.size() + 1);
 
     return true;
 }

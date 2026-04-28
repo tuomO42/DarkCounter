@@ -11,7 +11,7 @@ public:
     ObserverFactory& operator=(const Observer &) = delete;
 
     bool selectProcess(std::string_view name);
-    Observer makeObserver(std::string_view name, void* address) const;
+    Observer makeObserver(std::string name, void* address) const;
 
 private:
     int _pid = -1;
