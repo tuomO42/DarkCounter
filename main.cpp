@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
         return -1; 
     }
 
-    auto observer = factory.makeObserver("random", (void*)0x078700);
+    auto observer = factory.makeObserver("random", (void*)std::stoul("5619c1036000", nullptr, 16));
 
     if(!observer.update())
     {

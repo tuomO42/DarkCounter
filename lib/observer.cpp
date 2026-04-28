@@ -18,7 +18,7 @@ _path(out_file)
 
 bool Observer::update() const
 {
-    if(process_vm_readv(_pid, &_local, 1, &_remote, 1, 0) < 0)
+    if(process_vm_readv(_pid, &_local, 1, &_remote, 1, 0) <= 0)
     {
         std::cout << "Failed to read from the process: " << strerror(errno) << "\n";
         return false;
