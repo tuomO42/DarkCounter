@@ -72,7 +72,7 @@ bool ObserverFactory::selectProcess(std::string_view name)
 }
 
 
-Observer ObserverFactory::makeObserver(std::string name, void* address) const
+Observer ObserverFactory::makeObserver(const std::string& name, void* address) const
 {
     std::string out_file = std::format("./{}/{}.txt", _obs_folder, name);
 
