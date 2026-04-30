@@ -1,6 +1,5 @@
 #include "lib/observer_factory.h"
 
-#include <vector>
 #include <iostream>
 #include <thread>
 #include <chrono>
