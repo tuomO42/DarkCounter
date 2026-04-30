@@ -58,7 +58,7 @@ bool ObserverFactory::selectProcess(std::string_view name)
         std::ifstream reader(comm);
         std::string ret;
         std::getline(reader, ret);
-        
+
         if(ret == name){
             std::string path = pid;
             auto start = path.find_last_of("/") + 1;

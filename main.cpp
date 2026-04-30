@@ -10,9 +10,10 @@ struct MemValue
     const std::string name;
     void* address;
 };
-
+//
 const std::unordered_map<std::string_view, const MemValue> games = {
     {"bash", {"random", (void*)std::stoul("7fcd7dd8b000", nullptr, 16)}},
+    {"DarkSoulsRemast", {"deaths", (void*)0x9828998}},
 
 };
 
