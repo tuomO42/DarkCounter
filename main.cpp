@@ -16,6 +16,7 @@ const std::unordered_map<std::string_view, const MemValue> games = {
     {"bash", {"random", (void*)std::stoul("7fcd7dd8b000", nullptr, 16)}},
 
 };
+
 static void printHelp()
 {
     std::cout << "\n\nexample: sudo ./DarkCounter <game>\nThe following arguments are supported:\n";
