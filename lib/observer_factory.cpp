@@ -72,9 +72,9 @@ bool ObserverFactory::selectProcess(std::string_view name)
 }
 
 
-Observer ObserverFactory::makeObserver(const std::string& name, void* address) const
+std::shared_ptr<Observer> ObserverFactory::makeObserver(const std::string& name, void* address) const
 {
     std::string out_file = std::format("./{}/{}.txt", _obs_folder, name);
 
-    return Observer(_pid, address, out_file);
+    return std::make_shared<Observer>(_pid, address, out_file);
 }

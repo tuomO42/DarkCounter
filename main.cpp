@@ -3,27 +3,27 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include <unordered_map>
+#include <map>
 
-struct MemValue
+struct Game
 {
-    const std::string name;
-    void* address;
+    const std::string_view name;
+    const std::string_view process_name;
+    std::map<const std::string, void*> values;
 };
-//
-const std::unordered_map<std::string_view, const MemValue> games = {
-    {"bash", {"random", (void*)std::stoul("7fcd7dd8b000", nullptr, 16)}},
-    {"DarkSoulsRemast", {"deaths", (void*)0x9828998}},
 
+const std::vector<Game> games = {
+    {"DarkSoulsRemastered" , "DarkSoulsRemast", {{"deaths", (void*)0x9828998}}},
 };
 
 static void printHelp()
 {
-    std::cout << "\n\nexample: sudo ./DarkCounter <game>\nThe following arguments are supported:\n";
-    for(const auto& [name, mem] : games)
+    std::cout << "\n\nexample: sudo ./DarkCounter <number>\nThe following arguments are supported:\n";
+    for(size_t i = 0; i < games.size(); ++i)
     {
-        std::cout << "\t" << name << "\n";
+        std::cout << "\t" << i << " : " << games[i].name << "\n";
     }
+    std::cout << "\n";
 }
 
 int main(int argc, char* argv[])
@@ -37,29 +37,41 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    std::string_view process_name = argv[1];
-    auto it = games.find(process_name);
-    if(it == games.end())
+    size_t index = std::stoi(argv[1]);
+    if(index >= games.size())
     {
-        std::cout << "Unknown game given as argument: " << process_name;
+        std::cout << "Unknown index argument: " << index;
         printHelp();
         return 0;
     }
 
-    if(!factory.selectProcess(it->first))
+    const auto& game = games[index];
+    if(!factory.selectProcess(game.process_name))
     {
-        std::cout << "Could not find a process with name: " << it->first << "\n";
+        std::cout << "Could not find a process with name: " << game.process_name << "\nGame needs to be running when starting the counter\n\n";
         return -1; 
     }
 
-    auto observer = factory.makeObserver(it->second.name, it->second.address);
+    std::vector<std::shared_ptr<Observer>> observers;
+    observers.reserve(game.values.size());
 
+    std::cout << "Creating observers\n";
+    for(const auto& [name, address] : game.values)
+    {
+        observers.push_back(factory.makeObserver(name, address));
+        std::cout << "\tCreated observer for: " << name << "\n";
+    }
+
+    std::cout << "Starting counting\n";
     while(true)
     {
-        if(!observer.update())
+        for(const auto& obs : observers)
         {
-            std::cout << "Failed to update observer\n";
-            return -1;
+            if(!obs->update())
+            {
+                std::cout << "Failed to update observer\n";
+                return -1;
+            }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }

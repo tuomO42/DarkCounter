@@ -1,6 +1,7 @@
 #pragma once
 
 #include "observer.h"
+#include "memory"
 
 
 class ObserverFactory
@@ -11,7 +12,7 @@ public:
     ObserverFactory& operator=(const Observer &) = delete;
 
     bool selectProcess(std::string_view name);
-    Observer makeObserver(const std::string& name, void* address) const;
+    std::shared_ptr<Observer> makeObserver(const std::string& name, void* address) const;
 
 private:
     int _pid = -1;
