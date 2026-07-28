@@ -14,6 +14,7 @@ struct Game
 
 const std::vector<Game> games = {
     {"DarkSoulsRemastered" , "DarkSoulsRemast", {{"deaths", (void*)0x9828998}}},
+    {"DarkSouls2sin" , "DarkSoulsII.exe", {{"deaths", (void*)0x7fffeb71f124}}},
 };
 
 static void printHelp()
