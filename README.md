@@ -1,7 +1,9 @@
 # DarkCounter
 DarkSouls death counter for linux
 
-Currently only supports Dark Souls Remastered.
+Currently supports:
+- Dark Souls Remastered
+- Dark Souls 2
 
 # Building
 
