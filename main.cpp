@@ -51,6 +51,7 @@ int main(int argc, char* argv[])
         printHelp();
         return -1;
     }
+
     if(index >= games.size())
     {
         std::cout << "Unknown index argument: " << index;
