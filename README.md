@@ -4,6 +4,7 @@ DarkSouls death counter for linux
 Currently supports:
 - Dark Souls Remastered
 - Dark Souls 2
+- Dark Souls 3
 
 # Building
 

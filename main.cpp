@@ -1,6 +1,7 @@
 #include "lib/observer_factory.h"
 
 #include <iostream>
+#include <vector>
 #include <thread>
 #include <chrono>
 #include <map>
@@ -13,8 +14,9 @@ struct Game
 };
 
 const std::vector<Game> games = {
-    {"DarkSoulsRemastered" , "DarkSoulsRemast", {{"deaths", (void*)0x9828998}}},
-    {"DarkSouls2sin" , "DarkSoulsII.exe", {{"deaths", (void*)0x7fffeb71f124}}},
+    {"DarkSoulsRemastered" , "DarkSoulsRemast", {{"deaths_all", (void*)0x9828998}}},
+    {"DarkSouls2sin" , "DarkSoulsII.exe", {{"deaths_all", (void*)0x7fffeb71f124}}},
+    {"DarkSouls3" , "DarkSoulsIII.ex", {{"deaths_all", (void*)0x7fff1bd018e8}, {"death_session", (void*)0x7fff1bd18598}}},
 };
 
 static void printHelp()
