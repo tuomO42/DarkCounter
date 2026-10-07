@@ -1,6 +1,8 @@
 #include "lib/observer_factory.h"
 
+#include <cstdint>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -40,7 +42,15 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    size_t index = std::stoi(argv[1]);
+    
+    size_t index = SIZE_MAX;
+    try {
+        index = std::stoi(argv[1]);
+    } catch (std::invalid_argument) {
+        std::cout << "Invalid argument";
+        printHelp();
+        return -1;
+    }
     if(index >= games.size())
     {
         std::cout << "Unknown index argument: " << index;
